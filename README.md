@@ -35,7 +35,7 @@ The hash table is built in the form of a static library used by wordcount, and a
 
 ## Example input and output
 
-`make run <test.txt`br>
+`make run <test.txt`
 
 erat 	 1<br>
 imperdiet 	 1<br>
