@@ -1,6 +1,6 @@
 ## vut-ijc-project-2 
 
-This program counts the words from the stdin input stream and displays the number of occurences of each unique word.<br> 
+This program counts the words from the stdin input stream and displays the number of occurences of each unique word.
 It utilizes a hash table, implemented as a dynamically allocated array of linked lists, to store and count the frequency of words.
 
 ## Program Functionality
@@ -35,51 +35,51 @@ The hash table is built in the form of a static library used by wordcount, and a
 
 ## Example input and output
 
-`make run <test.txt`
+`make run <test.txt`br>
 
-erat 	 1
-imperdiet 	 1
-sagittis 	 2
-fringilla, 	 1
-diam. 	 1
-eu, 	 1
-elit 	 1
-consectetur 	 1
-faucibus 	 1
-dapibus 	 1
-odio. 	 1
-Suspendisse 	 1
-vestibulum. 	 1
-eget, 	 1
-aliquam 	 1
-Lorem 	 1
-Duis 	 2
-amet 	 1
-velit 	 1
-at 	 1
-ipsum 	 1
-dolor 	 1
-magna 	 1
-ligula 	 1
-sit 	 2
-congue 	 1
-adipiscing 	 1
-amet, 	 1
-Integer 	 2
-elit. 	 1
-euismod 	 1
-eu 	 1
-bibendum 	 1
-efficitur 	 1
-nisi, 	 1
-nisi. 	 1
-ante 	 1
-eros, 	 1
-eros. 	 1
-leo 	 1
-at, 	 1
-vitae 	 2
-in 	 1
+erat 	 1<br>
+imperdiet 	 1<br>
+sagittis 	 2<br>
+fringilla, 	 1<br>
+diam. 	 1<br>
+eu, 	 1<br>
+elit 	 1<br>
+consectetur 	 1<br>
+faucibus 	 1<br>
+dapibus 	 1<br>
+odio. 	 1<br>
+Suspendisse 	 1<br>
+vestibulum. 	 1<br>
+eget, 	 1<br>
+aliquam 	 1<br>
+Lorem 	 1<br>
+Duis 	 2<br>
+amet 	 1<br>
+velit 	 1<br>
+at 	 1<br>
+ipsum 	 1<br>
+dolor 	 1<br>
+magna 	 1<br>
+ligula 	 1<br>
+sit 	 2<br>
+congue 	 1<br>
+adipiscing 	 1<br>
+amet, 	 1<br>
+Integer 	 2<br>
+elit. 	 1<br>
+euismod 	 1<br>
+eu 	 1<br>
+bibendum 	 1<br>
+efficitur 	 1<br>
+nisi, 	 1<br>
+nisi. 	 1<br>
+ante 	 1<br>
+eros, 	 1<br>
+eros. 	 1<br>
+leo 	 1<br>
+at, 	 1<br>
+vitae 	 2<br>
+in 	 1<br>
 
 Statistics: MAX: 1, MIN: 0, AVERAGE: 0.001835
 
