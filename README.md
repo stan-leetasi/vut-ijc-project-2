@@ -1,4 +1,4 @@
-## vut-ijc-project-2 
+# vut-ijc-project-2 
 
 This program counts the words from the stdin input stream and displays the number of occurences of each unique word.
 It utilizes a hash table, implemented as a dynamically allocated array of linked lists, to store and count the frequency of words.
