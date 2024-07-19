@@ -1,8 +1,7 @@
 // io.c
-// Řešení IJC-DU2, příklad b), 17.4.2023
-// Autor: Stanislav Letaši, FIT
-// Přeloženo: gcc 11.3.0
-// Načíta prvé slovo zo zadaného súboru a vracia jeho dĺžku
+// 17.4.2023
+// Author: Stanislav Letaši, FIT
+// Compiled with: gcc 11.3.0
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,62 +9,54 @@
 #include <stdbool.h>
 #include <string.h>
 
-
+/**
+ * Reads a single word from input file f, 
+ * writes the word into string s, returns word length
+ */
 int read_word(char *s, int max, FILE *f, bool *frst_err)
 {
-    if (f == NULL) // Ak zlyhalo otvorenie vstupného suboru
+    if (f == NULL)
     {
-        fprintf(stderr, "Otvorenie vstupneho suboru zlyhalo\n");
+        fprintf(stderr, "ERR: Failed to open input file\n");
         exit(1);
     }
 
     if (feof(f))
-    {
         return EOF;
-    }
-
+    
     int c;
-
     int index = 0;
 
-    memset(s, '\0', max+1);
+    memset(s, '\0', max+1); // zero-out the string
 
-    while ((c = fgetc(f)) != ' ' && c!= EOF) // Čítanie znakov zo súboru kým nenajde whitespace alebo EOF
+    while ((c = fgetc(f)) != ' ' && c!= EOF) // read chars from file
     {
-        if(c == '\n' && index == 0) // Preskočenie prázdneho riadku
+        if(c == '\0' || c == '\n' || c == ',' || c == '.')
         {
-            continue;
-        }
+            // dispose of irrelevant characters
+            while((c = fgetc(f)) == '\0' || c == '\n' || c == ',' || c == '.');
 
-        if(c == '\0' || c == '\n') // Ukončenie slova newline charakterom
-        {
-            c = fgetc(f); // Odstranenie newline charakteru a posunutie sa na dalsi riadok
             return index;
         }
 
-        if (index >= max) // Ak slovo presiahlo dĺžku max znakov
+        if (index >= max)
         {
             if (*frst_err == false)
             {
-                fprintf(stderr, "Slovo prekrocilo hranicu %i charakterov, zvysne charaktery budu ignorovane\n",max);
+                fprintf(stderr, "A word has exceeded %i characters, the rest of the characters will be ignored\n",max);
                 *frst_err = true;
             }
 
-            while ((c = fgetc(f)) != ' ' && c != EOF && c != '\n'); // Načítanie a zahodenie zvyšných charakterov
-             
+            while ((c = fgetc(f)) != ' ' && c != EOF && c != '\n'); // dispose of the rest of the word
             return max;
         }
 
-        s[index] = c; // Pridanie znaku do stringu
+        s[index] = c; // add character to string
         index++;
     }
 
     if(c == EOF && index == 0)
-    {
         return EOF;
-    }
-    else
-    {
-        return index;
-    }
+    
+    return index;
 }

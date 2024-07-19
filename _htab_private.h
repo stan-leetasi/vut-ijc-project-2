@@ -1,25 +1,23 @@
 // _htab_private.h
-// Řešení IJC-DU2, příklad b), 16.4.2023
-// Autor: Stanislav Letaši, FIT
-// Přeloženo: gcc 11.3.0
-// Definícia štruktúry htab
+// 17.4.2023
+// Author: Stanislav Letaši, FIT
+// Compiled with: gcc 11.3.0
 
 #ifndef _HTAB_PRIVATE_H__
 #define _HTAB_PRIVATE_H__
 
 #include "htab.h"
 
-// Definícia položky v tabulke
+// entity in the hash table
 typedef struct htab_ent {
-    htab_pair_t data; // Dáta prvej položky na adrese
-    struct htab_ent *next; // Ukazateľ na ďalšiu položku na rovnakej adrese
+    htab_pair_t data;       // data of a record
+    struct htab_ent *next;  // pointer to the next record on the same address
 } htab_ent_t;
 
-// Definícia štruktúry htab
 struct htab {
-    size_t size;  // Počet položiek v tabuľke
-    size_t arr_size;  // Veľkosť alokovanej pamäti/kapacita tabuľky
-    htab_ent_t **arr;  // Pole položiek (linked list)
+    size_t size;        // number of entities in the table
+    size_t arr_size;    // table capacity
+    htab_ent_t **arr;   // linked list of entities
 };
 
 #endif

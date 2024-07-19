@@ -6,7 +6,7 @@ OBJSD=htab_bucket_count_d.o htab_clear_d.o htab_erase_d.o htab_find_d.o htab_has
 default: libhtab.a wordcount libhtab.so wordcount-dynamic
 
 
-#Staticka kniznica
+#Static library
 libhtab.a: $(OBJS)
 	ar rcs libhtab.a $(OBJS)
 		
@@ -16,7 +16,7 @@ wordcount: wordcount.o
 wordcount.o: wordcount.c htab.h 
 	$(CC) $(CFLAGS) -c wordcount.c
 
-#Dynamicka kniznica
+#Dynamic library
 libhtab.so: $(OBJSD)
 	$(CC) -shared -o libhtab.so $(OBJSD)
 

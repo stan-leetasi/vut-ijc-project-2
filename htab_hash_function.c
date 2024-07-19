@@ -1,16 +1,15 @@
 // htab_hash_function.c
-// Řešení IJC-DU2, příklad b), 16.4.2023
-// Autor: Stanislav Letaši, FIT
-// Přeloženo: gcc 11.3.0
-// Definícia funkcie htab_hash_function
+// 17.4.2023
+// Author: Stanislav Letaši, FIT
+// Compiled with: gcc 11.3.0
 
 #include <string.h>
 #include <stdlib.h>
 #include "htab.h"
 
-/*
-Vypočíta hash zadaného stringu a vracia jeho hodnotu
-*/
+/**
+ * Calculates the hash of str
+ */
 size_t htab_hash_function(htab_key_t str){
 
     size_t hash = 0;

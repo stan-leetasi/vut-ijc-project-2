@@ -1,17 +1,17 @@
 // htab_free.c
-// Řešení IJC-DU2, příklad b), 16.4.2023
-// Autor: Stanislav Letaši, FIT
-// Přeloženo: gcc 11.3.0
-// Definícia funkcie htab_free
+// 17.4.2023
+// Author: Stanislav Letaši, FIT
+// Compiled with: gcc 11.3.0
+
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "htab.h"
 #include "_htab_private.h"
 
-/*
-Uvoľní pamäť alokovanú tabuľkou
-*/
+/**
+ * Frees memory allocated by table
+ */
 void htab_free(htab_t * t){
     for(size_t i = 0; i < t->arr_size; i++)
     {

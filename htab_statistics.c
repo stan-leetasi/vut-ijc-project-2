@@ -1,8 +1,7 @@
 // htab_statistics.c
-// Řešení IJC-DU2, příklad b), 16.4.2023
-// Autor: Stanislav Letaši, FIT
-// Přeloženo: gcc 11.3.0
-// Definícia funkcie htab_statistics
+// 17.4.2023
+// Author: Stanislav Letaši, FIT
+// Compiled with: gcc 11.3.0
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,35 +18,24 @@ void htab_statistics(const htab_t * t)
     for (size_t i = 0; i < t->arr_size; i++) 
     {
 
-        if(t->arr[i]->data.key == NULL) // Prázdny index
+        if(t->arr[i]->data.key == NULL) // no record on index
         {
             if(0 < min){
                 min=0;
             }
             continue;
         }
-        if(t->arr[i] == t->arr[i]->next) // Ak sa na indexe nachádza len 1 záznam
-        {
-            if (1>max){
-                max = 1;
-            }
-            if (1<min){
-                min = 1;
-            }
-            avg = avg + 1.0;
-            continue;
-        }
 
-        htab_ent_t *current; // Dočasná premenná pre záznam
-        htab_ent_t *head; // Dočasná premenná pre prvý záznam na indexe
+        htab_ent_t *current;
+        htab_ent_t *head; 
 
-        head = t->arr[i]; // 1. záznam na indexe
+        head = t->arr[i]; 
         current = head;
             
-            bool found = false; // Bool na indikáciu ukončenia loopu
+            bool found = false;
             while (found == false)
             {
-                if(current->next == head) // Pokiaľ neexistuje ďalší záznam(vrátenie sa na začiatok zoznamu)
+                if(current->next == head)
                 {
                     avg = avg + 1.0;
                     curr_count = curr_count + 1;
@@ -60,14 +48,18 @@ void htab_statistics(const htab_t * t)
                     avg = avg + 1.0;
                 }
             }
-            if(curr_count > max){
+            if(curr_count > max)
                 max = curr_count;
-            }
-            if(curr_count < min){
+            
+            if(curr_count < min)
                 min = curr_count;
-            }
+            
             curr_count = 0;
     }
+
     avg = avg / (double)(t->arr_size);
-    fprintf(stderr, "Statistics: MAX: %ld, MIN: %ld, AVERAGE: %lf\n",max,min,avg);
+    size_t size = htab_size(t);
+    size_t bucket_cnt = htab_bucket_count(t);
+
+    fprintf(stderr, "Statistics: MAX: %ld, MIN: %ld, AVERAGE: %lf, TABLE SIZE: %ld, BUCKET COUNT: %ld\n",max, min, avg, size, bucket_cnt);
 }

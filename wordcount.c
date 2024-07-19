@@ -1,8 +1,8 @@
-// wordcount.c
-// Řešení IJC-DU2, příklad b), 16.4.2023
-// Autor: Stanislav Letaši, FIT
-// Přeloženo: gcc 11.3.0
-// počíta počet slov vo vstupnom texte
+// io.c
+// 17.4.2023
+// Author: Stanislav Letaši, FIT
+// Compiled with: gcc 11.3.0
+
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -12,52 +12,30 @@
 #include "htab.h"
 #include "io.c"
 
-// Optimálna veľkosť tabuľky by malo byť prvočíslo
-// 18000 slov je priemerný počet unikátnych slov v knihe
-// 18000*1,3 je 23400, a 23431 je najbližšie prvočíslo
+// Optimal table size should be a prime number
+// 18000 is the number of unique words in a book
+// 18000*1,3 is 23400, 23431 is the closest prime number
 #define ARR_SIZE 23431
-
 
 int main()
 {
     htab_t *table;
-    table = htab_init(ARR_SIZE); // Vytvorenie tabulky
+    table = htab_init(ARR_SIZE);
 
-    // Kód ktorý ukončí program ak nie je spustený so vstupom na stdin
-    // Bez neho program čaká na vstup zo stdin
-    // Musí byť odkomentovaný aby bol program kompatibilný s UNIX pipe
-    /*
-    fcntl(STDIN_FILENO, F_SETFL, fcntl(STDIN_FILENO, F_GETFL, 0) | O_NONBLOCK); // Nastavenie stdin streamu do non-blocking módu
+    bool frst_err = false; // error message will only be printed once per session
 
-    char c = getchar(); // Pokus o prečítanie prvého charakteru (v non-blocking móde sa nečaká na zadanie charakteru ak na stdin už nie je vstup)
+    int length = 0; // word length
+    char *string = malloc(256*sizeof(char)); // temporary string
 
-    if (c == EOF) // Overenie či stdin nie je prázdny
+    while(true) // read input from stdin
     {
-        fprintf(stderr, "Na stdin nebol zadany vstup\n");
-        htab_clear(table);
-        htab_free(table);
-        exit(1);
-    }
-    else
-    {
-        fcntl(STDIN_FILENO, F_SETFL, fcntl(STDIN_FILENO, F_GETFL, 0)); // Vrátenie default nastavení stdin streamu
-        ungetc(c, stdin);                                              // Vrátenie prečítaného charakteru na stdin
-    }
-    */
+        length = read_word(string, 255, stdin, &frst_err);
 
-    bool frst_err = false; // Pri prvom presiahnutí MAX_LENGTH sa nastaví na true, aby sa správa o prekročení dĺžky vypísala len raz
-
-    int length = 0; // Dĺžka slova
-    char *string = malloc(256*sizeof(char)); // String na dočasné uloženie slova (limit dĺžky 256)
-
-    while(true) // Načítanie vstupu zo stdin
-    {
-        length = read_word(string,255,stdin,&frst_err);
         if(length == EOF)
-        {
             break;
-        }
-        htab_lookup_add(table,string);
+        
+        if(length > 0)
+            htab_lookup_add(table,string);
     }
 
     htab_for_each(table,htab_print);

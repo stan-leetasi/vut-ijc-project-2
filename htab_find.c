@@ -1,54 +1,43 @@
 // htab_find.c
-// Řešení IJC-DU2, příklad b), 16.4.2023
-// Autor: Stanislav Letaši, FIT
-// Přeloženo: gcc 11.3.0
-// Definícia funkcie htab_find
+// 17.4.2023
+// Author: Stanislav Letaši, FIT
+// Compiled with: gcc 11.3.0
 
 #include "htab.h"
 #include "_htab_private.h"
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
-
+/**
+ * Returns the last record on index
+ */
 htab_pair_t *htab_find(const htab_t * t, htab_key_t key){
 
-    
     size_t index = htab_hash_function(key) % t->arr_size;
 
-    if(t->arr[index]->data.key == NULL) // Na indexe neexistuje záznam
-    {
+    if(t->arr[index]->data.key == NULL) // no record on index
         return NULL;
-    }
-    else // Na danom indexe existuje aspoň 1 záznam 
+    
+    else // find the last record on index
     {
-        if (t->arr[index]->next == t->arr[index]) // Na indexe je len 1 záznam
+        htab_ent_t *current;
+        htab_ent_t *head;
+        current = t->arr[index];
+        head = current;
+
+        bool found = false; 
+        while (!found)
         {
-            htab_pair_t *pair;
-            pair = &(t->arr[index]->data);
-            return pair;
-        }
-        else // Na indexe je viac záznamov, najde sa posledný
-        {
-            htab_ent_t *current; // Dočasná premenná pre záznam
-            htab_ent_t *head; // Dočasná premenná pre prvý záznam na indexe
-            current = t->arr[index];
-            head = current;
-            bool found = false; // Bool na indikáciu ukončenia loopu
-            while (found == false)
-            {
-                if(current->next == head) // Pokiaľ neexistuje ďalší záznam(vrátenie sa na začiatok zoznamu)
-                {
-                    found = true;
-                }
-                else
-                {
-                current = current->next;
-                }
-            }
+            if(current->next == head) // last record was found
+                found = true;
             
-            htab_pair_t *pair;
-            pair = &(current->data);
-            return pair;
+            else
+                current = current->next;
         }
+        
+        htab_pair_t *pair;
+        pair = &(current->data);
+        return pair;
+        
     }
 }

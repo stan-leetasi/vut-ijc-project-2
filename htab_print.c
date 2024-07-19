@@ -1,8 +1,7 @@
 // htab_print.c
-// Řešení IJC-DU2, příklad b), 16.4.2023
-// Autor: Stanislav Letaši, FIT
-// Přeloženo: gcc 11.3.0
-// Definícia funkcie htab_print
+// 17.4.2023
+// Author: Stanislav Letaši, FIT
+// Compiled with: gcc 11.3.0
 
 #include "htab.h"
 #include "_htab_private.h"
@@ -10,7 +9,10 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+/**
+ * Prints record key and data
+ */
 void htab_print(htab_pair_t *data)
 {
-    printf("%s \t %d\n", data->key, data->value);
+    printf("%d \t %s\n", data->value, data->key);
 }
